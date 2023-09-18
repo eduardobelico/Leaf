@@ -13,7 +13,7 @@ class BookRepositoryImpl(
     private val service: BookServices
 ) : BookRepository {
     
-    override fun getVolumeFromQuery(
+    override fun getVolumeList(
         query: String
     ): Flow<Resource<List<Volume>>> = flow {
         try {
@@ -27,6 +27,7 @@ class BookRepositoryImpl(
         } catch (e: Exception) {
             Log.e("BookRepository", "$e")
             emit(Resource.Error("Procure por um outro livro!"))
-    
+            
+        }
     }
 }
