@@ -1,7 +1,7 @@
 package com.example.leaf.di
 
 import com.example.leaf.domain.repository.BookRepository
-import com.example.leaf.domain.useCases.GetVolumeListUseCase
+import com.example.leaf.domain.useCases.GetBookListUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,9 +12,9 @@ import dagger.hilt.components.SingletonComponent
 object DomainModule {
     
     @Provides
-    fun providesGetVolumeListUseCase(
+    fun providesGetBookListUseCase(
         repository: BookRepository
-    ): GetVolumeListUseCase {
-        return GetVolumeListUseCase(repository)
+    ): GetBookListUseCase {
+        return GetBookListUseCase(repository)
     }
 }

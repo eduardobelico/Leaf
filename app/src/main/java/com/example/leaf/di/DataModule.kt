@@ -2,6 +2,8 @@ package com.example.leaf.di
 
 import android.util.Log
 import com.example.leaf.core.Constants.BASE_URL
+import com.example.leaf.core.Constants.OK_HTTP
+import com.example.leaf.data.remote.network.BookSearchServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +22,7 @@ object DataModule {
     @Singleton
     fun providesOkHttpClient(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor {
-            Log.i("OK_HTTP", it)
+            Log.i(OK_HTTP, it)
         }.apply { level = HttpLoggingInterceptor.Level.BODY }
         
         return OkHttpClient.Builder()
@@ -30,14 +32,14 @@ object DataModule {
     
     @Provides
     @Singleton
-    fun providesVolumeServices(client: OkHttpClient): BookServices {
+    fun providesBookSearchServices(client: OkHttpClient): BookSearchServices {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
-    
-        return retrofit.create(BookServices::class.java)
+        
+        return retrofit.create(BookSearchServices::class.java)
         
     }
 }
