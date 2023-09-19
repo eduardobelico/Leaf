@@ -2,12 +2,10 @@ package com.example.leaf.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class BookRequest(
+data class AuthorRequest(
     val start: Int,
-    @SerializedName("num_found")
-    val booksFound: Int,
+    @SerializedName("numFound")
+    val authorsFound: Int,
     @SerializedName("docs")
-    val bookList: List<BookDto>
+    val authorList: List<AuthorDto>
 )
-
-
