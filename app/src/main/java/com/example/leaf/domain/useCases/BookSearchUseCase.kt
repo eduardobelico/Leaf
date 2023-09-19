@@ -5,7 +5,7 @@ import com.example.leaf.domain.model.Book
 import com.example.leaf.domain.repository.BookRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetBookListUseCase(
+class BookSearchUseCase(
     private val repository: BookRepository
 ) {
     operator fun invoke(query: String): Flow<Resource<List<Book>>> {
