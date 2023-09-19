@@ -6,5 +6,8 @@ data class BookRequest(
     val start: Int,
     @SerializedName("num_found")
     val booksFound: Int,
-    val docs: List<BookDto>
+    @SerializedName("docs")
+    val bookList: List<BookDto>
 )
+
+

@@ -8,6 +8,6 @@ class GetVolumeListUseCase(
     private val repository: BookRepository
 ) {
     operator fun invoke(query: String): Flow<Resource<List<Volume>>> {
-        return repository.getVolumeList(query)
+        return repository.getBooksList(query)
     }
 }
