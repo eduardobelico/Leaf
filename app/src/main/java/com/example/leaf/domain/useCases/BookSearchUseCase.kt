@@ -4,8 +4,9 @@ import com.example.leaf.core.Resource
 import com.example.leaf.domain.model.Book
 import com.example.leaf.domain.repository.BookRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class BookSearchUseCase(
+class BookSearchUseCase @Inject constructor(
     private val repository: BookRepository
 ) {
     operator fun invoke(query: String): Flow<Resource<List<Book>>> {

@@ -31,7 +31,7 @@ class HomeScreenViewModel @Inject constructor(
             HomeScreenEvent.OnLoadBookList -> {
                 viewModelScope.launch {
                     _uiState.value = _uiState.value.copy(
-                        searchedBooks = it,
+                        
                         }
                     )
                 }

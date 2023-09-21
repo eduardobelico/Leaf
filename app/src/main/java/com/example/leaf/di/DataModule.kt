@@ -4,6 +4,8 @@ import android.util.Log
 import com.example.leaf.core.Constants.BASE_URL
 import com.example.leaf.core.Constants.OK_HTTP
 import com.example.leaf.data.remote.network.BookSearchServices
+import com.example.leaf.data.repository.BookRepositoryImpl
+import com.example.leaf.domain.repository.BookRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +19,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {
+    
+    @Provides
+    @Singleton
+    fun providesBookRepository(services: BookSearchServices): BookRepository {
+        return BookRepositoryImpl(services)
+    }
     
     @Provides
     @Singleton
