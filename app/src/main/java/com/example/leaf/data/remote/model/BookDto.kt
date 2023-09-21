@@ -14,8 +14,6 @@ data class BookDto(
     val key: String,
     @SerializedName("cover_i")
     val coverId: Int,
-//    @SerializedName("cover_edition_key")
-//    val coverEditionKey: String,
     @SerializedName("edition_count")
     val editionCount: Int
 )
