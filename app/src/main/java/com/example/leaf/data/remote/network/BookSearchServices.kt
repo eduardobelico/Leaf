@@ -5,12 +5,16 @@ import com.example.leaf.data.remote.model.AuthorRequest
 import com.example.leaf.data.remote.model.BooksByAuthorRequest
 import com.example.leaf.data.remote.model.BookSearchRequest
 import com.example.leaf.data.remote.model.SubjectRequest
+import com.example.leaf.data.remote.model.TrendingBooksRequest
 import com.example.leaf.data.remote.model.WorkDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface BookSearchServices {
+    
+    @GET("trending/daily.json")
+    fun trendingBooks(): TrendingBooksRequest
     
     @GET("search.json")
     fun searchBooks(

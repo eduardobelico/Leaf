@@ -14,6 +14,6 @@ fun HomeScreen(
     val state by viewModel.uiState.collectAsState()
     
     Column {
-        val sections = state.sec
+        val sections = state.sect
     }
 }

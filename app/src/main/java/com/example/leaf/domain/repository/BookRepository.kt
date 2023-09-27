@@ -14,4 +14,5 @@ interface BookRepository {
     fun getBooksBySubject(subject: String): Flow<Resource<List<Work>>>
     fun getAuthorName(authorKey: String): Flow<Resource<String>>
     fun getWork(workKey: String): Flow<Resource<Work>>
+    fun getTrendingBooks(): Flow<Resource<List<Work>>>
 }

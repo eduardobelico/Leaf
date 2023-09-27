@@ -126,5 +126,17 @@ class BookRepositoryImpl @Inject constructor(
         }
     }
     
+    override fun getTrendingBooks(): Flow<Resource<List<Work>>> = flow {
+        try {
+            val response = service.trendingBooks()
+            val workList = response.works.map {
+                it.toWork()
+            }
+            emit(Resource.Success(workList))
+        } catch (e: Exception) {
+            Log.e(TAG, "Error fetching works", e)
+            emit(Resource.Error("Error fetching works: ${e.message}"))
+        }
+    }
     
 }
