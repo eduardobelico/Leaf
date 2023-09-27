@@ -6,6 +6,7 @@ import com.example.leaf.domain.useCases.BookSearchUseCase
 import com.example.leaf.domain.useCases.GetAuthorNameUseCase
 import com.example.leaf.domain.useCases.GetBooksByAuthorUseCase
 import com.example.leaf.domain.useCases.GetBooksBySubjectUseCase
+import com.example.leaf.domain.useCases.GetTrendingBooks
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,4 +50,12 @@ object DomainModule {
     ): GetAuthorNameUseCase {
         return GetAuthorNameUseCase(repository)
     }
+    
+    @Provides
+    fun providesGetTrendingBooks(
+        repository: BookRepository
+    ): GetTrendingBooks {
+        return  GetTrendingBooks(repository)
+    }
+    
 }

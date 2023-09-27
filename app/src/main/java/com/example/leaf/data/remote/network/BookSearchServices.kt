@@ -14,7 +14,7 @@ import retrofit2.http.Query
 interface BookSearchServices {
     
     @GET("trending/daily.json")
-    fun trendingBooks(): TrendingBooksRequest
+    fun getTrendingBooks(): TrendingBooksRequest
     
     @GET("search.json")
     fun searchBooks(
@@ -37,7 +37,7 @@ interface BookSearchServices {
     ): SubjectRequest
     
     @GET("/works/{key}.json")
-    fun searchWork(
+    fun getWorkDetails(
         @Path("key") workKey: String
     ): WorkDto
     
