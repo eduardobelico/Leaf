@@ -8,17 +8,17 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class GetBooksBySubjectUseCase @Inject constructor(
-    private val repository: BookRepository
-) {
-    operator fun invoke(subject: String): Flow<Resource<List<Work>>> = flow {
-        repository.getBooksBySubject(subject)
-            .map { resource ->
-                if (resource is Resource.Success) {
-                    resource.data ?: emptyList()
-                } else {
-                    emptyList()
-                }
-            }
-    }
-}
+//class GetBooksBySubjectUseCase @Inject constructor(
+//    private val repository: BookRepository
+//) {
+//    operator fun invoke(subject: String): Flow<Resource<List<Work>>> = flow {
+//        repository.getBooksBySubject(subject)
+//            .map { resource ->
+//                if (resource is Resource.Success) {
+//                    resource.data ?: emptyList()
+//                } else {
+//                    emptyList()
+//                }
+//            }
+//    }
+//}

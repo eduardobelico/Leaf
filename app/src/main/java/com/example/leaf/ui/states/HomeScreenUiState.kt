@@ -5,10 +5,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 data class HomeScreenUiState(
-    val trendingBooks: Flow<List<TrendingWork>> = flowOf(emptyList()),
+    val trendingBooks: List<TrendingWork> = emptyList(),
     val isTrendingBooksLoading: Boolean = false,
-    val isTrendingBooksError: String? = null
-
+    val isTrendingBooksError: String? = null,
+    val subject: List<String> = emptyList()
 )
 
 

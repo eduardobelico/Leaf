@@ -1,21 +1,22 @@
 package com.example.leaf.data.mappers
 
-import com.example.leaf.data.remote.model.TrendingWorkDto
+import com.example.leaf.data.remote.model.ListedWorkDto
 import com.example.leaf.data.remote.network.BookSearchServices
-import com.example.leaf.domain.model.TrendingWork
+import com.example.leaf.domain.model.ListedWork
 
-fun TrendingWorkDto.toTrendingWork(bookSearchServices: BookSearchServices): TrendingWork {
+fun ListedWorkDto.toListedWork(bookSearchServices: BookSearchServices): ListedWork {
     
     val coverUrl = "https://covers.openlibrary.org/b/id/${coverId}-L.jpg"
-    val authorName = authorName.firstOrNull() ?: ""
+    val author = authors.firstOrNull()?.name ?: "Autor Desconhecido"
     
-    return TrendingWork(
+    return ListedWork(
         key = key,
         title = title,
         editions = editions,
         publishedYear = publishedYear,
         coverUrl = coverUrl,
-        authorName = authorName
+        author = author,
+        subjects = subject
     )
     
 }

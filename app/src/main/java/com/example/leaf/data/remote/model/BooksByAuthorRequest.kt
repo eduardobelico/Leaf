@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class BooksByAuthorRequest(
     @SerializedName("entries")
-    val booksByAuthor: List<ListedWorksDto>
+    val booksByAuthor: List<ListedWorkDto>
 )

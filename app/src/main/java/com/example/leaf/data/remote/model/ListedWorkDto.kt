@@ -2,15 +2,15 @@ package com.example.leaf.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class TrendingWorkDto(
+data class ListedWorkDto(
     val key: String,
     val title: String,
     @SerializedName("edition_count")
     val editions: Int,
     @SerializedName("first_publish_year")
     val publishedYear: Int,
-    @SerializedName("cover_i")
+    @SerializedName("cover_id")
     val coverId: Int,
-    @SerializedName("author_name")
-    val authorName: List<String>
+    val authors: List<AuthorInfoDto>,
+    val subject: List<String>
 )

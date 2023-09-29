@@ -2,5 +2,5 @@ package com.example.leaf.data.remote.model
 
 data class SubjectRequest(
     val name: String,
-    val works: List<ListedWorksDto>
+    val works: List<ListedWorkDto>
 )
