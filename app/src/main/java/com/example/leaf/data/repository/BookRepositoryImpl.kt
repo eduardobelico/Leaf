@@ -3,10 +3,12 @@ package com.example.leaf.data.repository
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.leaf.core.Resource
+import com.example.leaf.data.mappers.toListedWork
 import com.example.leaf.data.mappers.toTrendingWork
 import com.example.leaf.data.mappers.toWork
 import com.example.leaf.data.remote.model.WorkDto
 import com.example.leaf.data.remote.network.BookSearchServices
+import com.example.leaf.domain.model.ListedWork
 import com.example.leaf.domain.model.TrendingWork
 import com.example.leaf.domain.model.Work
 import com.example.leaf.domain.repository.BookRepository
@@ -73,28 +75,7 @@ class BookRepositoryImpl @Inject constructor(
 //        }
 //    }
 //
-//    override fun getBooksBySubject(
-//        subject: String
-//    ): Flow<Resource<List<Work>>> = flow {
-//        try {
-//            val workList = mutableListOf<WorkDto>()
-//
-//            val response = service.searchBooksBySubject(subject = subject)
-//            val keyList = response.works.map { listedWorksDto ->
-//                listedWorksDto.key
-//            }
-//            for (workKey in keyList) {
-//                val work = service.getWorkDetails(workKey)
-//                workList.add(work)
-//            }
-//            emit(Resource.Success(workList.map {
-//                it.toWork()
-//            }))
-//        } catch (e: Exception) {
-//            Log.e(TAG, "Error fetching author", e)
-//            emit(Resource.Error("Error fetching author: ${e.message}"))
-//        }
-//    }
+
 //
 //    override fun getAuthorName(
 //        authorKey: String
@@ -130,6 +111,21 @@ class BookRepositoryImpl @Inject constructor(
                 it.toTrendingWork(service)
             }
             emit(Resource.Success(workList))
+        } catch (e: Exception) {
+            Log.e(TAG, "Error fetching works", e)
+            emit(Resource.Error("Error fetching works: ${e.message}"))
+        }
+    }
+    
+    override fun getBooksBySubject(
+        subject: String
+    ): Flow<Resource<List<ListedWork>>> = flow {
+        try {
+            val booksBySubject = service.searchBooksBySubject(subject = subject)
+            val workList = booksBySubject.works.map {
+                it.toListedWork(service)
+            }
+           emit(Resource.Success(workList))
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching works", e)
             emit(Resource.Error("Error fetching works: ${e.message}"))

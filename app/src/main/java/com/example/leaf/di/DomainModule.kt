@@ -1,8 +1,9 @@
 package com.example.leaf.di
 
 import com.example.leaf.domain.repository.BookRepository
-import com.example.leaf.domain.useCases.GetTrendingBooks
-import com.example.leaf.domain.useCases.GetWorkUseCase
+import com.example.leaf.domain.useCases.GetBooksBySubjectUseCase
+import com.example.leaf.domain.useCases.GetTrendingBooksUseCase
+import com.example.leaf.domain.useCases.GetWorkDetailsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,7 +12,7 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 object DomainModule {
-    
+
 //    @Provides
 //    fun providesGetBookListUseCase(
 //        repository: BookRepository
@@ -33,14 +34,8 @@ object DomainModule {
 //        return GetBooksByAuthorUseCase(repository)
 //    }
 //
-//    @Provides
-//    fun providesGetBooksBySubjectUseCase(
-//        repository: BookRepository
-//    ): GetBooksBySubjectUseCase {
-//        return GetBooksBySubjectUseCase(repository)
-//    }
-//
-//    @Provides
+    
+    //    @Provides
 //    fun providesGetAuthorNameUseCase(
 //        repository: BookRepository
 //    ): GetAuthorNameUseCase {
@@ -48,16 +43,24 @@ object DomainModule {
 //    }
 //
     @Provides
-    fun providesGetTrendingBooks(
+    fun providesGetTrendingBooksUseCase(
         repository: BookRepository
-    ): GetTrendingBooks {
-        return  GetTrendingBooks(repository)
+    ): GetTrendingBooksUseCase {
+        return GetTrendingBooksUseCase(repository)
     }
     
     @Provides
-    fun providesGetWorkDetails(
+    fun providesGetBooksBySubjectUseCase(
         repository: BookRepository
-    ): GetWorkUseCase {
-        return GetWorkUseCase(repository)
+    ): GetBooksBySubjectUseCase {
+        return GetBooksBySubjectUseCase(repository)
+    }
+    
+    
+    @Provides
+    fun providesGetWorkDetailsUseCase(
+        repository: BookRepository
+    ): GetWorkDetailsUseCase {
+        return GetWorkDetailsUseCase(repository)
     }
 }

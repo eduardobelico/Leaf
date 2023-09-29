@@ -59,7 +59,7 @@ fun HomeScreen(
 //        Surface {
 //            HomeScreen(
 //                HomeScreenViewModel(
-//                    GetTrendingBooks(
+//                    GetTrendingBooksUseCase(
 //                        BookRepo
 //                    )
 //                )
