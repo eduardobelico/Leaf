@@ -1,7 +1,7 @@
 package com.example.leaf.domain.useCases
 
 import com.example.leaf.core.Resource
-import com.example.leaf.domain.model.TrendingWork
+import com.example.leaf.domain.model.Work
 import com.example.leaf.domain.repository.BookRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetTrendingBooksUseCase @Inject constructor(
     private val repository: BookRepository
 ) {
-    operator fun invoke(): Flow<Resource<List<TrendingWork>>> {
+    operator fun invoke(): Flow<Resource<List<Work>>> {
         return repository.getTrendingBooks()
     }
 }

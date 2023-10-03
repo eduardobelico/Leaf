@@ -1,11 +1,13 @@
 package com.example.leaf.ui.activities
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -31,14 +33,19 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun LeafApp(
     content: @Composable () -> Unit = {}
 ) {
     LeafTheme {
-        Surface(modifier = Modifier.padding(4.dp)){
+        Scaffold(
+            modifier = Modifier.padding(4.dp),
+            content = {
                 content()
-        }
+            }
+        )
     }
 }
 

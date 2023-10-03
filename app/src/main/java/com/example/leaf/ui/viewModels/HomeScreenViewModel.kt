@@ -34,19 +34,21 @@ class HomeScreenViewModel @Inject constructor(
                         when (result) {
                             is Resource.Error -> {
                                 uiState = uiState.copy(
-                                    isBookListError = result.message
+                                    isTrendingBooksError = result.message,
+                                    isTrendingBooksLoading = false
                                 )
                             }
                             
                             is Resource.Loading -> {
                                 uiState = uiState.copy(
-                                    isBookListLoading = true
+                                    isTrendingBooksLoading = true
                                 )
                             }
                             
                             is Resource.Success -> {
                                 uiState = uiState.copy(
-                                    trendingBooks = result.data ?: emptyList()
+                                    trendingBooks = result.data ?: emptyList(),
+                                    isTrendingBooksLoading = false
                                 )
                             }
                         }
@@ -60,25 +62,54 @@ class HomeScreenViewModel @Inject constructor(
                         when (result) {
                             is Resource.Error -> {
                                 uiState = uiState.copy(
-                                    isBookListError = result.message
+                                    isClassicBooksError = result.message,
+                                    isClassicBooksLoading = false
                                 )
                             }
         
                             is Resource.Loading -> {
                                 uiState = uiState.copy(
-                                    isBookListLoading = true
+                                    isClassicBooksLoading = true
                                 )
                             }
         
                             is Resource.Success -> {
                                 uiState = uiState.copy(
-                                    booksBySubject = result.data ?: emptyList()
+                                    classicBooks = result.data ?: emptyList(),
+                                    isClassicBooksLoading = false
                                 )
                             }
                         }
                     }
                 }
-            
+            }
+    
+            is HomeScreenEvent.OnLoadRomanceBooks -> {
+                viewModelScope.launch {
+                    getBooksBySubjectUseCase(event.subject).collectLatest { result ->
+                        when (result) {
+                            is Resource.Error -> {
+                                uiState = uiState.copy(
+                                    isRomanceBooksError = result.message,
+                                    isRomanceBooksLoading = false
+                                )
+                            }
+                    
+                            is Resource.Loading -> {
+                                uiState = uiState.copy(
+                                    isRomanceBooksLoading = true
+                                )
+                            }
+                    
+                            is Resource.Success -> {
+                                uiState = uiState.copy(
+                                    romanceBooks = result.data ?: emptyList(),
+                                    isRomanceBooksLoading = false
+                                )
+                            }
+                        }
+                    }
+                }
             }
             
             is HomeScreenEvent.OnLoadWorkDetails -> {

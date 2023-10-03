@@ -2,7 +2,7 @@ package com.example.leaf.data.remote.network
 
 import com.example.leaf.data.remote.model.SubjectRequest
 import com.example.leaf.data.remote.model.TrendingBooksRequest
-import com.example.leaf.data.remote.model.WorkDto
+import com.example.leaf.data.remote.model.WorkDetailsDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -31,13 +31,13 @@ interface BookSearchServices {
 //        @Path("key") authorKey: String
 //    ): BooksByAuthorRequest
 //
-
+    
     
     @GET("works/{key}.json")
     suspend fun getWorkDetails(
         @Path("key") workKey: String
-    ): WorkDto
-    
+    ): WorkDetailsDto
+
 
 //    @GET("authors/{authorKey}.json")
 //    fun searchAuthorInfo(

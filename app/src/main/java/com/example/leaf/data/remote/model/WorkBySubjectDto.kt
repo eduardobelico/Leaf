@@ -2,7 +2,7 @@ package com.example.leaf.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ListedWorkDto(
+data class WorkBySubjectDto(
     val key: String,
     val title: String,
     @SerializedName("edition_count")

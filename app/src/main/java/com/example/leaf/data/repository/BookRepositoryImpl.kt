@@ -3,14 +3,11 @@ package com.example.leaf.data.repository
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.leaf.core.Resource
-import com.example.leaf.data.mappers.toListedWork
-import com.example.leaf.data.mappers.toTrendingWork
 import com.example.leaf.data.mappers.toWork
-import com.example.leaf.data.remote.model.WorkDto
+import com.example.leaf.data.mappers.toWorkDetails
 import com.example.leaf.data.remote.network.BookSearchServices
-import com.example.leaf.domain.model.ListedWork
-import com.example.leaf.domain.model.TrendingWork
 import com.example.leaf.domain.model.Work
+import com.example.leaf.domain.model.WorkDetails
 import com.example.leaf.domain.repository.BookRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -54,7 +51,7 @@ class BookRepositoryImpl @Inject constructor(
 //
 //    override fun getBooksByAuthor(
 //        authorKey: String
-//    ): Flow<Resource<List<Work>>> = flow {
+//    ): Flow<Resource<List<WorkDetails>>> = flow {
 //        try {
 //            val workList = mutableListOf<WorkDto>()
 //
@@ -91,12 +88,12 @@ class BookRepositoryImpl @Inject constructor(
 //        }
 //    }
     
-    override fun getWork(
+    override fun getWorkDetails(
         workKey: String
-    ): Flow<Resource<Work>> = flow {
+    ): Flow<Resource<WorkDetails>> = flow {
         try {
             val response = service.getWorkDetails(workKey = workKey)
-            val work = response.toWork()
+            val work = response.toWorkDetails()
             emit(Resource.Success(work))
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching works", e)
@@ -104,11 +101,11 @@ class BookRepositoryImpl @Inject constructor(
         }
     }
     
-    override fun getTrendingBooks(): Flow<Resource<List<TrendingWork>>> = flow {
+    override fun getTrendingBooks(): Flow<Resource<List<Work>>> = flow {
         try {
             val trendingBooks = service.getTrendingBooks()
             val workList = trendingBooks.works.map {
-                it.toTrendingWork(service)
+                it.toWork(service)
             }
             emit(Resource.Success(workList))
         } catch (e: Exception) {
@@ -119,13 +116,13 @@ class BookRepositoryImpl @Inject constructor(
     
     override fun getBooksBySubject(
         subject: String
-    ): Flow<Resource<List<ListedWork>>> = flow {
+    ): Flow<Resource<List<Work>>> = flow {
         try {
             val booksBySubject = service.searchBooksBySubject(subject = subject)
             val workList = booksBySubject.works.map {
-                it.toListedWork(service)
+                it.toWork(service)
             }
-           emit(Resource.Success(workList))
+            emit(Resource.Success(workList))
         } catch (e: Exception) {
             Log.e(TAG, "Error fetching works", e)
             emit(Resource.Error("Error fetching works: ${e.message}"))
