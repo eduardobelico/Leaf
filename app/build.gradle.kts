@@ -66,6 +66,9 @@ dependencies {
     // ViewModel Compose
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     
+    //
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    
     // Material Design 3
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-core")

@@ -1,5 +1,6 @@
 package com.example.leaf.domain.repository
 
+import androidx.paging.PagingData
 import com.example.leaf.core.Resource
 import com.example.leaf.domain.model.Work
 import com.example.leaf.domain.model.WorkDetails
@@ -13,5 +14,5 @@ interface BookRepository {
 //    fun getAuthorName(authorKey: String): Flow<Resource<String>>
     fun getWorkDetails(workKey: String): Flow<Resource<WorkDetails>>
     fun getBooksBySubject(subject: String): Flow<Resource<List<Work>>>
-    fun getTrendingBooks(): Flow<Resource<List<Work>>>
+    fun getTrendingBooks(): Flow<PagingData<Work>>
 }

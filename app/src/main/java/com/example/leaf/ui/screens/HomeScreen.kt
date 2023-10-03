@@ -17,10 +17,15 @@ fun HomeScreen(
 ) {
     val state = viewModel.uiState
     
+    val trendingList = state.trendingBooks.collectAsLazyPagingItems
+    
     LaunchedEffect(key1 = Unit) {
         viewModel.onEvent(HomeScreenEvent.OnLoadTrendingBooks)
         viewModel.onEvent(HomeScreenEvent.OnLoadClassicBooks("accessible_book"))
         viewModel.onEvent(HomeScreenEvent.OnLoadRomanceBooks("romance"))
+        viewModel.onEvent(HomeScreenEvent.OnLoadThrillerBooks("suspense"))
+        viewModel.onEvent(HomeScreenEvent.OnLoadFantasyBooks("fantasia"))
+        viewModel.onEvent(HomeScreenEvent.OnLoadChildrenBooks("infantil"))
     }
     
     LazyColumn(
@@ -31,6 +36,7 @@ fun HomeScreen(
         item {
             BookSection(
                 title = "Trending",
+                subjects = state.subject,
                 workList = state.trendingBooks,
                 onClick = { key ->
                     
@@ -42,6 +48,7 @@ fun HomeScreen(
         item {
             BookSection(
                 title = "Clássicos",
+                subjects = state.subject,
                 workList = state.classicBooks,
                 onClick = { key ->
                     
@@ -53,12 +60,49 @@ fun HomeScreen(
         item {
             BookSection(
                 title = "Romance",
+                subjects = state.subject,
                 workList = state.romanceBooks,
                 onClick = { key ->
                     
                     viewModel.onEvent(HomeScreenEvent.OnLoadWorkDetails(key))
                 }
             
+            )
+        }
+        item {
+            BookSection(
+                title = "Suspense",
+                subjects = state.subject,
+                workList = state.thrillerBooks,
+                onClick = { key ->
+                
+                    viewModel.onEvent(HomeScreenEvent.OnLoadWorkDetails(key))
+                }
+        
+            )
+        }
+        item {
+            BookSection(
+                title = "Fantasia",
+                subjects = state.subject,
+                workList = state.fantasyBooks,
+                onClick = { key ->
+                
+                    viewModel.onEvent(HomeScreenEvent.OnLoadWorkDetails(key))
+                }
+        
+            )
+        }
+        item {
+            BookSection(
+                title = "Infantil",
+                subjects = state.subject,
+                workList = state.childrenBooks,
+                onClick = { key ->
+                
+                    viewModel.onEvent(HomeScreenEvent.OnLoadWorkDetails(key))
+                }
+        
             )
         }
     }

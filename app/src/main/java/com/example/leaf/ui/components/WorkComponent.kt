@@ -1,8 +1,10 @@
 package com.example.leaf.ui.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,7 +16,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -23,14 +24,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
@@ -38,14 +37,16 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.leaf.R
 import com.example.leaf.domain.model.Work
-import com.example.leaf.ui.theme.LeafTheme
+import com.example.leaf.domain.model.WorkDetails
 import kotlinx.coroutines.launch
+import javax.security.auth.Subject
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalCoilApi::class)
 @Composable
 @ExperimentalMaterial3Api
 fun WorkComponent(
     work: Work,
+    subjects: List<String>,
     modifier: Modifier = Modifier,
     onClick: (String) -> Unit = {}
 ) {
@@ -88,20 +89,65 @@ fun WorkComponent(
                 contentScale = ContentScale.Crop
             )
             if (showBottomSheet) {
-                ModalBottomSheet(onDismissRequest = {
-                    showBottomSheet = false
-                },
-                    sheetState = sheetState) {
-                    Button(onClick = {
-                        scope.launch { sheetState.hide() }
-                    }) {
-                        Text("Hide bottom sheet")
+                ModalBottomSheet(
+                    onDismissRequest = {
+                        showBottomSheet = false
+                    },
+                    sheetState = sheetState,
+                ) {
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    ) {
+                        AsyncImage(
+                            model = ImageRequest.Builder(context)
+                                .data(work.coverUrl)
+                                .crossfade(true)
+                                .build(),
+                            placeholder = painterResource(R.drawable.placeholderv),
+                            error = painterResource(R.drawable.placeholderv),
+                            fallback = painterResource(R.drawable.placeholderv),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .height(260.dp)
+                                .width(180.dp)
+                                .padding(8.dp),
+                            contentScale = ContentScale.Crop
+                        )
+                        Column(
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Text(
+                                text = work.title,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight(800),
+                                maxLines = 3,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                            Text(
+                                text = work.authorName,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight(600)
+                            )
+                            Text(
+                                text = subjects.take(2).joinToString(", "),
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight(300)
+                            )
+                        }
+                        
                     }
                 }
             }
         }
     }
 }
+
+
 
 //@Preview(showBackground = true)
 //@Composable
@@ -125,42 +171,5 @@ fun WorkComponent(
 //var expanded by remember { mutableStateOf (false) }
 
 //if (expanded) {
-//    Column(
-//        Modifier
-//            .height(50.dp)
-//            .fillMaxWidth()
-//    ) {
-//        Text(
-//            text = work.title,
-//            fontSize = 14.sp,
-//            fontWeight = FontWeight(300),
-//            maxLines = 1,
-//            overflow = TextOverflow.Ellipsis
-//        )
-//        Row(
-//            Modifier
-//                .fillMaxWidth()
-//        ) {
-//            Column {
-//                Text(
-//                    text = work.authorName,
-//                    fontSize = 14.sp,
-//                    fontWeight = FontWeight(300)
-//                )
-////                            Text(
-////                                text = work.subjects.toString(),
-////                                fontSize = 14.sp,
-////                                fontWeight = FontWeight(300)
-////                            )
-//
-//            }
-//            Text(
-//                text = work.title,
-//                fontSize = 14.sp,
-//                fontWeight = FontWeight(300)
-//            )
-//
-//        }
-//    }
-//}
+
 //}

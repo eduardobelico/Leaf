@@ -2,15 +2,21 @@ package com.example.leaf.data.repository
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.leaf.core.Resource
 import com.example.leaf.data.mappers.toWork
 import com.example.leaf.data.mappers.toWorkDetails
 import com.example.leaf.data.remote.network.BookSearchServices
+import com.example.leaf.data.remote.network.TrendingBooksPagingSource
 import com.example.leaf.domain.model.Work
 import com.example.leaf.domain.model.WorkDetails
 import com.example.leaf.domain.repository.BookRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class BookRepositoryImpl @Inject constructor(
@@ -101,17 +107,17 @@ class BookRepositoryImpl @Inject constructor(
         }
     }
     
-    override fun getTrendingBooks(): Flow<Resource<List<Work>>> = flow {
-        try {
-            val trendingBooks = service.getTrendingBooks()
-            val workList = trendingBooks.works.map {
-                it.toWork(service)
+    override fun getTrendingBooks(): Flow<PagingData<Work>> {
+        val pagingSourceFactory = { TrendingBooksPagingSource(services = service) }
+        val pager = Pager(
+            config = PagingConfig(pageSize = 20),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow
+        return pager.map { pagingData ->
+            pagingData.map { it.toWork(service)
             }
-            emit(Resource.Success(workList))
-        } catch (e: Exception) {
-            Log.e(TAG, "Error fetching works", e)
-            emit(Resource.Error("Error fetching works: ${e.message}"))
         }
+        
     }
     
     override fun getBooksBySubject(

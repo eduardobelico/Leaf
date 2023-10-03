@@ -5,13 +5,17 @@ import com.example.leaf.data.remote.model.TrendingBooksRequest
 import com.example.leaf.data.remote.model.WorkDetailsDto
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface BookSearchServices {
     
-    @GET("trending/daily.json")
-    suspend fun getTrendingBooks(): TrendingBooksRequest
+    @GET("/trending/daily.json")
+    suspend fun getTrendingBooks(
+        @Query("limit") limit: Int,
+        @Query("offset") offset: Int
+    ): TrendingBooksRequest
     
-    @GET("subjects/{subject}.json")
+    @GET("/subjects/{subject}.json")
     suspend fun searchBooksBySubject(
         @Path("subject") subject: String
     ): SubjectRequest
@@ -33,11 +37,12 @@ interface BookSearchServices {
 //
     
     
-    @GET("works/{key}.json")
+    @GET("{key}.json")
     suspend fun getWorkDetails(
         @Path("key") workKey: String
     ): WorkDetailsDto
-
+    
+//    https://openlibrary.org/works/OL45804W.json
 
 //    @GET("authors/{authorKey}.json")
 //    fun searchAuthorInfo(

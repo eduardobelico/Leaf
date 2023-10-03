@@ -24,6 +24,7 @@ import com.example.leaf.domain.model.Work
 fun BookSection(
     title: String,
     workList: List<Work>,
+    subjects: List<String>,
     modifier: Modifier = Modifier,
     onClick: (String) -> Unit = {}
 ) {
@@ -49,9 +50,10 @@ fun BookSection(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(bottom = 16.dp)
         ) {
-            items(workList) { trendingWork ->
+            items(workList) { work ->
                 WorkComponent(
-                    work = trendingWork,
+                    work = work,
+                    subjects = subjects,
                     onClick = onClick
                 )
             }
